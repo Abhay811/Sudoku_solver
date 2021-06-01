@@ -1,10 +1,12 @@
 #importing packages
+
 from numpy.lib.function_base import percentile
 from imutils.perspective import four_point_transform
 from skimage.segmentation import clear_border
 import numpy as np
 import imutils
 import cv2
+
 
 def find_puzzle(image, debug = False):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

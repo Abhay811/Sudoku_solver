@@ -8,6 +8,7 @@ from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
 
+
 class SudokuNet:
   @staticmethod
   def build(width, height, depth, classes):     # width, height, (depth)channels of MNIST, classes total digits
