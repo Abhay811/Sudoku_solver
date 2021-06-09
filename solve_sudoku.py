@@ -1,14 +1,13 @@
 #imporing packages
 
-
-from pyimage.sudoku import ext_digit
-from pyimage.sudoku import find_puzzle
+from pyimage.sudoku.puzzle import ext_digit
+from pyimage.sudoku.puzzle import find_puzzle
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from sudoku import Sudoku
 import numpy as np
 import argparse
-# import imutlis
+import imutils
 import cv2
 
 #constructing the arg parser and parsing the args
@@ -27,10 +26,10 @@ model = load_model(args["model"])
 #load the input and resize it
 print("[INFO] processing image...")
 image = cv2.imread(args["image"])
-image = imutlis.resize(image, width = 600)
+image = imutils.resize(image, width=600)
 
 #find the puzzle in the image
-(puzzle_img, warped) = find_puzzle(image, debug=args["debug"] > 0)
+puzzle_img, warped = find_puzzle(image, debug=args["debug"] > 0)
 
 #initialize 9 x 9 Sudoku board
 board = np.zeros((9, 9), dtype="int")
@@ -89,13 +88,13 @@ for (cell_row, board_row) in zip(cell_loc, sol.board):
         
         #computing coordinate, where the digit will be drawn on output puzzle
         textX = int((endX - startX) * 0.33)
-        textY = int((endY - startY) * -0.2)
+        textY = int((endY - startY) * 0.001)
         textX += startX
         textY += endY
         
         #drawing the result digit on the sudoku puzzle image
         cv2.putText(puzzle_img, str(digit),(textX, textY), 
-        cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 0.9, (0, 255, 255), thickness=2)
+        cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 0.9, (0, 0, 255), thickness=2)
 
 cv2.imshow("Sudoku Result", puzzle_img)
 cv2.waitKey(0)
